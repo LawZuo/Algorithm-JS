@@ -63,5 +63,101 @@ var oneEditAway = function (first, second) {
     }
 
 };
-let test = oneEditAway("ab", "bc");
-console.log(test)
+
+/**
+ * @question 387. 字符串中的第一个唯一字符
+ * 给定一个字符串 s ，找到 它的第一个不重复的字符，并返回它的索引 。如果不存在，则返回 -1 。
+ * @tip
+ * 输入: s = "leetcode"
+   输出: 0
+ */
+/**
+ * @param {string} s
+ * @return {number}
+ */
+ var firstUniqChar = function(s) {
+     //越界判断
+     if (s == "") {
+         return -1;
+     }
+    //使用map对象 记录出现过的次数
+    let map = new Map();
+    for (let i = 0; i<s.length; i++) {
+        //获取当前的值
+        let current = s.charAt(i);
+        console.log(current, "记录的当前值")
+        //判断当前值是否存在
+        if (map.has(current)) {
+            //如果存在，获取对应的数值
+            let number = Number(map.get(current)) + 1;
+            console.log("取出的值", number);
+            //更新
+            map.set(current, number)
+        } else {
+            //不存在
+            map.set(current, 1);
+        }
+    }
+    console.log("map", map);
+    //遍历map,返回第一个出现1的key值
+    let law = -1;
+    map.forEach((value, key) => {
+        if (law !== -1) {
+            return;
+        } else {
+            if (value == 1) {
+                console.log("找到了", value, key)
+                console.log(s.indexOf(key));
+                // return s.indexOf(key);
+                law = s.indexOf(key);
+            }
+        }
+        
+    })
+    return law;
+};
+// let test = firstUniqChar("a");
+// console.log(test);
+var canConstruct = function(ransomNote, magazine) {
+    //使用map标记值在字符串里出现的次数
+    // let map1 = new Map();
+    // let map2 = new Map();
+    // let left = ransomNote.length, right = magazine.length;
+    //越界判断
+    if (ransomNote.length > magazine.length) {
+        return false;
+    };
+    let Fun = function(str) {
+        console.log("传进来的str", str)
+        let map = new Map();
+        for (let i = 0; i < str.length; i++) {
+            let num = str.charAt(i); //获取当前值
+            if (map.has(num)) {     //判断当前键是否存在map中
+                let value = map.get(num) + 1; //获取map中的值,累加
+                map.set(num, value); //更新map
+                // map.num = map.num + 1;
+            } else {
+                // map[num] = 1; //不存在，则添加
+                map.set(num ,1);
+            }
+        }
+        console.log("处理后的str", map)
+        // map = {};
+        return map;
+    }
+    let min = Fun(ransomNote), max = Fun(magazine);
+    // let max = Fun(magazine);
+    let law = 0;
+    while (law < ransomNote.length) {
+        let cur = ransomNote.charAt(law);
+        if (!max.has(cur)) {
+            return false;
+        } else {
+            if (min.get(cur) > max.get(cur)) {
+                return false;
+            }
+        }
+        law++;
+    }
+    return true;
+};
