@@ -19,7 +19,13 @@ const server1 = http.createServer((request, response) => {
             const { test } = JSON.parse(data)
             console.log(test);
         })
-
+        //响应
+        // response.statusCode = 200;
+        // response.setHeader("Content-Type", "text/plain;charset=utf8")
+        // response.writeHead(200)
+        response.writeHead(200, {
+            "Content-Type": "text/plain;charset=utf8"
+        })
 
 
         response.end("欢迎登录")
