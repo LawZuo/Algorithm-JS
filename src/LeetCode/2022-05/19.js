@@ -25,3 +25,56 @@
     }
     return result;
 };
+
+
+/**
+ * @Question 20. 有效的括号
+ * 给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s ，判断字符串是否有效。
+ * 有效字符串需满足：
+ *      左括号必须用相同类型的右括号闭合。
+ *      左括号必须以正确的顺序闭合。
+ * @tip
+ * 输入：s = "()[]{}"
+ * 输出：true
+ */
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+ var isValid = function(s) {
+    //越界判断，s的长度只能存在偶数才能匹配
+    if ((s.length) % 2 != 0) {
+        return false;
+    }
+    let stack = [];
+    let map = new Map();
+    map.set(')', '(');
+    map.set(']', '[');
+    map.set('}', '{');
+    // for of 可以遍历字符串
+    for (let item of s) {
+         //判断item是否存在
+         if (map.has(item)) { //匹配到右括号
+             //stack栈顶比较是否匹配，是弹栈，否直接返回false
+             if (stack[stack.length - 1] !== map.get(item)) {
+                 return false;
+             }
+             stack.pop();
+         } else {
+             //匹配到左括号，压栈
+             stack.push(item)
+         }
+    };
+    //判断stack是否为空，不为空则返回false
+    console.log(stack)
+    if (stack.length !== 0) {
+        return false;
+    };
+    return true;
+};
+let test = isValid("()[]{}");
+let test2 = isValid("(]");
+let test3 = isValid("]");
+let test4 = isValid("{");
+console.log(test, test2, test3, test4)
