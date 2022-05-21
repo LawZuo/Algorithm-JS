@@ -20,14 +20,15 @@ class AVLTree extends BinarySearchTree {
     }
     
     /**
-     * 
+     * @desc 左子树的最大深度L 与 右子树的最大深度R 获取最大深度满足公式：
+     *          max(L, R) + 1;
      * @param {*} node 
      * @returns { Number } 传入节点的最大高度-
      */
     getNodeHeight(node) {
         //递归 子节点为null退出
         if (node == null) {
-            return -1;
+            return 0;
         }
         return Math.max(
             //左右两边比较，取最大值
