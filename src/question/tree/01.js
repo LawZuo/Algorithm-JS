@@ -163,3 +163,91 @@ var hasPathSum = function (root, targetSum) {
     }
     return false;
 };
+
+// ===========================================
+/**
+ * @Question 700. 二叉搜索树中的搜索
+ * 给定二叉搜索树（BST）的根节点 root 和一个整数值 val。
+ * 你需要在 BST 中找到节点值等于 val 的节点。 返回以该节点为根的子树。 
+ * 如果节点不存在，返回 null 。
+ * @Tip 
+ * 输入：root = [4,2,7,1,3], val = 2
+ * 输出：[2,1,3]
+ */
+
+/**
+ * @param {TreeNode} root
+ * @param {number} val
+ * @return {TreeNode}
+ */
+ var searchBST = function(root, val) {
+    if (!root) {
+        return null;
+    };
+    
+};
+
+/**
+ * @Question 235. 二叉搜索树的最近公共祖先
+ * 给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。
+ * 最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一
+ * 点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
+ * @Tip
+ * 输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
+ * 输出: 6 
+ * 解释: 节点 2 和节点 8 的最近公共祖先是 6。
+ */
+
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+ var lowestCommonAncestor = function(root, p, q) {
+    //遍历 如果两个值在两侧，那当前节点就是最小值
+    //都在一侧则继续找
+    //还有一个要注意的是，传的两个值是node节点
+    if (!root) {
+        return null;
+    }
+    if ((root.val > p.val && root.val > q.val) || (root.val < p.val && root.val < q.val)) {
+        return lowestCommonAncestor(root.val > p.val ? root.left : root.right, p, q);
+    }
+    return root;
+};
+
+// =========================================
+
+/**
+ * @Question 653. 两数之和 IV - 输入 BST
+ * 给定一个二叉搜索树 root 和一个目标结果 k，
+ * 如果 BST 中存在两个元素且它们的和等于给定目标结果，则返回 true。
+ * @Tip
+ * 输入: root = [5,3,6,2,4,null,7], k = 9
+ * 输出: true
+ */
+
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {boolean}
+ */
+ var findTarget = function(root, k) {
+    //树不会重复，所以可以定义一个set来存储检索过的数字
+    //将当前值与哈希里的数据匹配，如果存在目标值则返回true
+    //全部遍历完不存在返回false
+    let set = new Set();
+    function Loop(node, k) {
+        if (!node) {
+            return false; //退出条件
+        }
+        let curr = k - node.val;
+        if (set.has(curr)) {
+            return true
+        };
+        set.add(node.val);
+        return Loop(node.left, k) || Loop(node.right, k)
+    }
+    return Loop(root, k);
+};
