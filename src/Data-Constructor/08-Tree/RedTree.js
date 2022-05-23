@@ -210,5 +210,5 @@ class RedBlackTree {
                 return this.insertNode(node.right, key);
             }
         }
-    }
+    }  
 }
